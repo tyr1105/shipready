@@ -1,57 +1,89 @@
-# ShipReady - SaaS Starter Kit
+<div align="center">
 
-**Ship your SaaS in a weekend, not months.**
+# ⚡ ShipReady
 
-A production-ready Next.js SaaS boilerplate with auth, payments, dashboard, and a stunning landing page.
+### Ship your SaaS in a weekend, not months.
 
-## Features
+A production-ready **Next.js SaaS starter kit** with authentication, Stripe payments, dashboard, and a stunning landing page. Stop reinventing the wheel.
 
-- Landing Page (Hero, Features, Pricing, Testimonials, FAQ, CTA)
-- Authentication (Supabase: email/password, Google, GitHub, password reset)
-- Payments (Stripe: checkout, webhooks, customer portal, subscriptions)
-- Dashboard (stats, activity, settings, billing management)
-- Dark Mode (next-themes, system + manual toggle)
-- Fully Responsive (mobile-first Tailwind CSS)
-- SEO Optimized (Next.js Metadata, Open Graph)
-- Route Protection (middleware-based auth guard)
-- Full TypeScript
+[![Buy on Gumroad](https://img.shields.io/badge/Buy%20on-Gumroad-pink?style=for-the-badge)](https://zeoland.gumroad.com/l/shipready)
+[![GitHub stars](https://img.shields.io/github/stars/tyr1105/shipready?style=for-the-badge)](https://github.com/tyr1105/shipready)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge)](https://typescriptlang.org)
 
-## Tech Stack
+</div>
 
-- Next.js 16 (App Router)
-- Tailwind CSS 4 + shadcn/ui
-- Supabase Auth
-- Stripe
-- TypeScript
+---
 
-## Quick Start
+## 🚀 What You Get
 
-1. Clone and install:
-   ```bash
-   npm install
-   ```
+ShipReady is everything you need to launch a SaaS product — **auth, payments, dashboard, landing page** — wired up and ready to customize.
 
-2. Copy environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
+### Landing Page
+A conversion-optimized marketing site with Hero, Features, Pricing, Testimonials, FAQ, and CTA sections. Just swap the copy and ship.
 
-3. Set up Supabase:
-   - Create project at supabase.com
-   - Run the SQL in the Setup Guide below
-   - Enable Google/GitHub OAuth in Auth > Providers
+### Authentication
+Supabase-powered auth with email/password, Google, GitHub OAuth, and password reset. Route protection via middleware — no unauthenticated dashboard access.
 
-4. Set up Stripe:
-   - Create products in Stripe Dashboard
-   - Add price IDs to .env.local
-   - Create webhook for /api/stripe/webhook
+### Payments
+Stripe integration with checkout sessions, webhook handling, customer portal, and subscription management. Your billing page, done.
 
-5. Run:
-   ```bash
-   npm run dev
-   ```
+### Dashboard
+Stats overview, activity feed, settings, and billing management. Protected routes, clean layout, ready for your data.
 
-## Supabase Setup SQL
+### Dark Mode
+System preference detection + manual toggle. Every component looks great in both themes.
+
+---
+
+## ✨ Features
+
+| Feature | Implementation |
+|---|---|
+| **Landing Page** | Hero, Features, Pricing, Testimonials, FAQ, CTA |
+| **Auth** | Supabase: email/password, Google, GitHub, password reset |
+| **Payments** | Stripe: checkout, webhooks, customer portal, subscriptions |
+| **Dashboard** | Stats, activity, settings, billing management |
+| **Dark Mode** | next-themes, system + manual toggle |
+| **Responsive** | Mobile-first Tailwind CSS |
+| **SEO** | Next.js Metadata, Open Graph |
+| **Route Protection** | Middleware-based auth guard |
+| **TypeScript** | Full type safety throughout |
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| **Next.js 16** | App Router, SSR, API routes |
+| **Tailwind CSS 4** | Utility-first styling |
+| **shadcn/ui** | Beautiful, accessible components |
+| **Supabase** | Authentication & user management |
+| **Stripe** | Payments & subscriptions |
+| **TypeScript** | Type safety |
+
+---
+
+## ⚡ Quick Start
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/tyr1105/shipready.git
+cd shipready
+npm install
+```
+
+### 2. Set up environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+### 3. Set up Supabase
+
+1. Create a project at [supabase.com](https://supabase.com)
+2. Run the SQL below in the SQL Editor
+3. Enable Google/GitHub OAuth in **Auth > Providers**
 
 ```sql
 create table profiles (
@@ -74,7 +106,23 @@ create policy "Users can update own profile" on profiles
   for update using (auth.uid() = id);
 ```
 
-## Project Structure
+### 4. Set up Stripe
+
+1. Create products in [Stripe Dashboard](https://dashboard.stripe.com)
+2. Add price IDs to `.env.local`
+3. Create a webhook endpoint for `/api/stripe/webhook`
+
+### 5. Run
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) and start customizing.
+
+---
+
+## 📁 Project Structure
 
 ```
 src/
@@ -95,13 +143,30 @@ src/
   middleware.ts      Auth guard
 ```
 
-## Customization
+---
 
-- Branding: Edit constants.ts and layout.tsx
-- Pricing: Edit constants.ts and pricing.tsx, then match in Stripe
-- Colors: Edit globals.css CSS variables (oklch)
-- New pages: Add route groups under app/
+## 🎨 Customization
 
-## License
+- **Branding:** Edit `constants.ts` and `layout.tsx`
+- **Pricing plans:** Update `constants.ts` pricing array
+- **Landing page copy:** Edit components in `components/landing/`
+- **Dashboard layout:** Modify `components/dashboard/`
+- **Colors & theme:** Tailwind CSS config + CSS variables
 
-Commercial template. Purchase a license to use in your projects.
+---
+
+## 💰 Pricing & License
+
+Get ShipReady on Gumroad for a one-time payment. Use it for unlimited personal projects.
+
+[**Get ShipReady →**](https://zeoland.gumroad.com/l/shipready)
+
+---
+
+<div align="center">
+
+**Ship faster. Ship smarter. ShipReady.**
+
+Also check out: [TailDash](https://github.com/tyr1105/taildash) — Tailwind CSS Dashboard UI Kit
+
+</div>
