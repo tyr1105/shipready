@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipReady - Ship Your SaaS in a Weekend</title>
+    <meta name="description" content="Production-ready Next.js 16 SaaS boilerplate with Supabase Auth, Stripe payments, dashboard, and a stunning landing page. Stop building boilerplate. Start shipping product.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #09090b; color: #fafafa; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* Nav */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #1a1a1a; }
+        nav .logo { font-size: 1.25rem; font-weight: 700; color: #fafafa; }
+        nav .logo span { color: #8b5cf6; }
+        nav a { color: #a1a1aa; text-decoration: none; font-size: 0.875rem; margin-left: 24px; transition: color 0.2s; }
+        nav a:hover { color: #fafafa; }
+
+        /* Hero */
+        .hero { padding: 100px 0 60px; text-align: center; }
+        .hero .badge { display: inline-block; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); border-radius: 999px; padding: 6px 16px; font-size: 0.8rem; color: #a78bfa; margin-bottom: 24px; letter-spacing: 0.05em; }
+        .hero h1 { font-size: 4rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 .gradient { background: linear-gradient(135deg, #8b5cf6, #ec4899, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.25rem; color: #a1a1aa; max-width: 600px; margin: 0 auto 40px; }
+        .hero .buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; padding: 14px 32px; border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.4); }
+        .cta-secondary { display: inline-block; background: transparent; color: #a1a1aa; padding: 14px 32px; border-radius: 10px; font-size: 1rem; font-weight: 500; text-decoration: none; border: 1px solid #27272a; transition: border-color 0.2s, color 0.2s; }
+        .cta-secondary:hover { border-color: #8b5cf6; color: #fafafa; }
+        .hero .sub { font-size: 0.8rem; color: #71717a; margin-top: 16px; }
+
+        /* Tech pills */
+        .tech-pills { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 32px 0; border-bottom: 1px solid #1a1a1a; }
+        .pill { background: #18181b; border: 1px solid #27272a; border-radius: 999px; padding: 6px 14px; font-size: 0.8rem; color: #a1a1aa; }
+
+        /* Section */
+        .section { padding: 80px 0; }
+        .section h2 { font-size: 2.25rem; font-weight: 700; text-align: center; margin-bottom: 12px; }
+        .section .desc { text-align: center; color: #71717a; margin-bottom: 48px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 1.05rem; }
+
+        /* Feature grid */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .feature { background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 28px; transition: border-color 0.2s; }
+        .feature:hover { border-color: #8b5cf6; }
+        .feature .icon { font-size: 1.5rem; margin-bottom: 12px; }
+        .feature h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+        .feature p { color: #71717a; font-size: 0.9rem; line-height: 1.6; }
+
+        /* What's included */
+        .included-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .included-card { background: #18181b; border: 1px solid #27272a; border-radius: 10px; padding: 20px; }
+        .included-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .included-card ul { list-style: none; }
+        .included-card ul li { padding: 4px 0; font-size: 0.875rem; color: #a1a1aa; }
+        .included-card ul li::before { content: '✓ '; color: #22c55e; font-weight: 600; }
+
+        /* Pricing */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto; }
+        .price-card { background: #18181b; border: 1px solid #27272a; border-radius: 14px; padding: 32px; position: relative; }
+        .price-card.popular { border-color: #8b5cf6; box-shadow: 0 0 40px rgba(139,92,246,0.1); }
+        .price-card.popular::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; padding: 4px 16px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; }
+        .price-card .plan-name { font-size: 1rem; font-weight: 600; color: #a1a1aa; margin-bottom: 8px; }
+        .price-card .price { font-size: 3rem; font-weight: 800; margin-bottom: 4px; }
+        .price-card .price-note { font-size: 0.8rem; color: #71717a; margin-bottom: 24px; }
+        .price-card ul { list-style: none; margin-bottom: 28px; }
+        .price-card ul li { padding: 6px 0; font-size: 0.9rem; color: #a1a1aa; border-bottom: 1px solid #27272a; }
+        .price-card ul li::before { content: '✓ '; color: #22c55e; font-weight: 600; }
+        .price-card .buy-btn { display: block; text-align: center; background: #27272a; color: #fafafa; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; transition: background 0.2s; }
+        .price-card .buy-btn:hover { background: #3f3f46; }
+        .price-card.popular .buy-btn { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .price-card.popular .buy-btn:hover { box-shadow: 0 4px 20px rgba(139,92,246,0.4); }
+
+        /* Comparison */
+        .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+        .comp-card { padding: 24px; border-radius: 12px; }
+        .comp-card.bad { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); }
+        .comp-card.good { background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.2); }
+        .comp-card h3 { font-size: 1rem; margin-bottom: 12px; }
+        .comp-card.bad h3 { color: #ef4444; }
+        .comp-card.good h3 { color: #22c55e; }
+        .comp-card ul { list-style: none; }
+        .comp-card ul li { padding: 6px 0; font-size: 0.9rem; color: #a1a1aa; }
+
+        /* FAQ */
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #27272a; padding: 20px 0; }
+        .faq-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .faq-item p { color: #71717a; font-size: 0.9rem; }
+
+        /* Final CTA */
+        .final-cta { text-align: center; padding: 80px 0; border-top: 1px solid #1a1a1a; }
+        .final-cta h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+        .final-cta p { color: #71717a; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        footer { text-align: center; padding: 32px 0; color: #525252; font-size: 0.8rem; border-top: 1px solid #1a1a1a; }
+        footer a { color: #8b5cf6; text-decoration: none; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .buttons { flex-direction: column; align-items: center; }
+            .comparison { grid-template-columns: 1fr; }
+            nav a { margin-left: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">Ship<span>Ready</span></div>
+            <div>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="https://github.com/tyr1105/shipready">GitHub</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="badge">🚀 NEXT.JS 16 + SUPABASE + STRIPE</div>
+            <h1>Ship your SaaS<br>in a <span class="gradient">weekend</span></h1>
+            <p>Production-ready boilerplate with auth, payments, dashboard, and landing page. Stop rebuilding infrastructure. Start shipping product.</p>
+            <div class="buttons">
+                <a href="https://zeoland.gumroad.com/l/shipready" class="cta-btn">Get ShipReady — From $49</a>
+                <a href="#features" class="cta-secondary">See what's included</a>
+            </div>
+            <p class="sub">One-time purchase · Full source code · Deploy in 30 minutes</p>
+        </section>
+
+        <div class="tech-pills">
+            <span class="pill">Next.js 16</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">Tailwind CSS 4</span>
+            <span class="pill">shadcn/ui</span>
+            <span class="pill">Supabase Auth</span>
+            <span class="pill">Stripe</span>
+        </div>
+
+        <section class="section" id="features">
+            <h2>Everything a SaaS Needs</h2>
+            <p class="desc">No bloat. No 50 components you'll never use. Just the essential infrastructure every SaaS requires.</p>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="icon">🏠</div>
+                    <h3>Landing Page</h3>
+                    <p>Hero, features, pricing with monthly/annual toggle, testimonials, FAQ, and CTA. Conversion-optimized and fully responsive.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🔐</div>
+                    <h3>Authentication</h3>
+                    <p>Supabase Auth with email/password, Google OAuth, GitHub OAuth. Login, signup, forgot password — all wired up.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">💳</div>
+                    <h3>Stripe Payments</h3>
+                    <p>Checkout sessions, webhooks, customer portal. Subscription management fully integrated with real-time status.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">📊</div>
+                    <h3>Dashboard</h3>
+                    <p>Protected user dashboard with stats, activity feed, profile settings, and billing management. Route-guarded.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🌙</div>
+                    <h3>Dark Mode</h3>
+                    <p>System preference detection + manual toggle. Because developers work at night. Built with next-themes.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">📱</div>
+                    <h3>Fully Responsive</h3>
+                    <p>Mobile-first Tailwind CSS. Looks great on every device. SEO optimized with Next.js Metadata and Open Graph.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>What's Included</h2>
+            <p class="desc">Clean, well-organized code you can actually understand and customize.</p>
+            <div class="included-grid">
+                <div class="included-card">
+                    <h3>🏠 Landing Page</h3>
+                    <ul>
+                        <li>Hero section with CTA</li>
+                        <li>Feature showcase grid</li>
+                        <li>Pricing with billing toggle</li>
+                        <li>Testimonials section</li>
+                        <li>FAQ accordion</li>
+                        <li>Footer with links</li>
+                    </ul>
+                </div>
+                <div class="included-card">
+                    <h3>🔐 Auth Flows</h3>
+                    <ul>
+                        <li>Email + password signup/login</li>
+                        <li>Google OAuth</li>
+                        <li>GitHub OAuth</li>
+                        <li>Password reset flow</li>
+                        <li>Route protection middleware</li>
+                        <li>Profile management</li>
+                    </ul>
+                </div>
+                <div class="included-card">
+                    <h3>💳 Stripe Integration</h3>
+                    <ul>
+                        <li>Checkout session creation</li>
+                        <li>Webhook event handling</li>
+                        <li>Customer portal access</li>
+                        <li>Subscription status tracking</li>
+                        <li>Plan-based feature gating</li>
+                    </ul>
+                </div>
+                <div class="included-card">
+                    <h3>📊 Dashboard</h3>
+                    <ul>
+                        <li>Stats overview cards</li>
+                        <li>Activity feed</li>
+                        <li>Profile settings page</li>
+                        <li>Billing management</li>
+                        <li>Sidebar navigation</li>
+                        <li>Responsive layout</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Before vs After ShipReady</h2>
+            <p class="desc">How much time are you wasting on boilerplate?</p>
+            <div class="comparison">
+                <div class="comp-card bad">
+                    <h3>❌ Without ShipReady</h3>
+                    <ul>
+                        <li>2-4 weeks setting up auth</li>
+                        <li>Days integrating Stripe webhooks</li>
+                        <li>Building a landing page from scratch</li>
+                        <li>Wiring up dashboard navigation</li>
+                        <li>Configuring dark mode manually</li>
+                        <li>Month 2: still no product shipped</li>
+                    </ul>
+                </div>
+                <div class="comp-card good">
+                    <h3>✅ With ShipReady</h3>
+                    <ul>
+                        <li>30 minutes to full setup</li>
+                        <li>Stripe just needs your API keys</li>
+                        <li>Beautiful landing page included</li>
+                        <li>Dashboard ready out of the box</li>
+                        <li>Dark mode works automatically</li>
+                        <li>Week 1: shipping real features</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="pricing">
+            <h2>Simple Pricing</h2>
+            <p class="desc">One-time purchase. No subscriptions. Use on unlimited projects.</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="price">$49</div>
+                    <div class="price-note">One-time payment</div>
+                    <ul>
+                        <li>Full source code</li>
+                        <li>Landing page</li>
+                        <li>Email/password auth</li>
+                        <li>Dashboard</li>
+                        <li>README documentation</li>
+                        <li>Personal license</li>
+                    </ul>
+                    <a href="https://zeoland.gumroad.com/l/shipready-starter" class="buy-btn">Get Starter</a>
+                </div>
+                <div class="price-card popular">
+                    <div class="plan-name">Pro</div>
+                    <div class="price">$99</div>
+                    <div class="price-note">One-time payment</div>
+                    <ul>
+                        <li>Everything in Starter</li>
+                        <li>Stripe payments integration</li>
+                        <li>Social OAuth (Google, GitHub)</li>
+                        <li>Dark mode</li>
+                        <li>Priority email support</li>
+                        <li>1 year of updates</li>
+                    </ul>
+                    <a href="https://zeoland.gumroad.com/l/shipready" class="buy-btn">Get Pro</a>
+                </div>
+                <div class="price-card">
+                    <div class="plan-name">Ultimate</div>
+                    <div class="price">$149</div>
+                    <div class="price-note">One-time payment</div>
+                    <ul>
+                        <li>Everything in Pro</li>
+                        <li>Lifetime updates</li>
+                        <li>Premium support (24h response)</li>
+                        <li>Team license (up to 5 devs)</li>
+                        <li>Early access to new templates</li>
+                    </ul>
+                    <a href="https://zeoland.gumroad.com/l/shipready-ultimate" class="buy-btn">Get Ultimate</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>FAQ</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>How long does setup take?</h3>
+                    <p>About 30 minutes. Clone the repo, run npm install, set up Supabase (free tier) and Stripe (test mode), and you're running.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use this for multiple projects?</h3>
+                    <p>Yes. All tiers include a license for unlimited personal projects. The Ultimate tier extends to teams of up to 5 developers.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I need to set up my own Supabase and Stripe?</h3>
+                    <p>Yes. ShipReady uses your own Supabase project and Stripe account — you keep full control of your data and payments. Setup instructions are included.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I get a refund?</h3>
+                    <p>Yes, 30-day money-back guarantee. If ShipReady doesn't save you time, just ask for a refund.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I get updates?</h3>
+                    <p>Pro includes 1 year of updates. Ultimate includes lifetime updates with early access to new templates and components.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <h2>Stop building boilerplate.</h2>
+            <p>Ship your SaaS this weekend with production-ready auth, payments, and a beautiful UI.</p>
+            <a href="https://zeoland.gumroad.com/l/shipready" class="cta-btn">Get ShipReady — From $49</a>
+        </section>
+
+        <footer>
+            ShipReady · Built with Next.js 16 · <a href="https://github.com/tyr1105/shipready">View on GitHub</a> · <a href="https://tyr1105.github.io/codeforge-ai/">CodeForge AI</a>
+        </footer>
+    </div>
+</body>
+</html>
